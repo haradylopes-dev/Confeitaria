@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Doce Lucro</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:#fff6fa;color:#624454}
+header{background:white;padding:20px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;box-shadow:0 2px 12px #e7b7cc}
+.logo{font-size:27px;font-weight:bold;color:#cf568a}
+nav{display:flex;gap:14px;flex-wrap:wrap}
+nav a{color:#754e62;text-decoration:none;font-size:14px}
+nav a:hover{color:#d34e89}
+.hero{text-align:center;padding:75px 20px;background:linear-gradient(120deg,#ffe0ed,#fff3f8)}
+.hero h1{font-size:38px;color:#bd477b;margin-bottom:15px}
+.hero p{margin-bottom:24px}
+button,.btn{background:#d65b91;color:white;border:0;padding:12px 20px;border-radius:9px;cursor:pointer}
+button:hover,.btn:hover{background:#b94077}
+section{padding:45px 7%}
+h2{text-align:center;color:#c34e83;margin-bottom:25px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
+.card,.panel,.form{background:white;padding:23px;border-radius:15px;box-shadow:0 3px 14px #e9c2d1}
+.card{text-align:center}
+.card h3{color:#c34e83;margin:12px 0}
+.emoji{font-size:35px}
+.form{max-width:600px;margin:auto}
+label{display:block;margin-top:12px;font-size:14px;font-weight:bold}
+input,select{width:100%;padding:12px;margin-top:6px;border:1px solid #ecc6d7;border-radius:8px;background:#fffafd}
+.form button{margin-top:15px}
+table{width:100%;border-collapse:collapse;min-width:450px}
+td,th{padding:12px;border-bottom:1px solid #f3dce6;text-align:left}
+th{color:#c34e83}
+.table{overflow-x:auto;margin-top:20px}
+.panel{margin-top:20px}
+.dashboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:15px}
+.info{background:#ffedf4;padding:20px;border-radius:12px}
+.info h3{color:#c34e83;font-size:15px}
+.info p{font-size:23px;margin-top:10px;font-weight:bold}
+.resultado{background:#ffedf4;padding:15px;margin-top:15px;border-radius:10px}
+footer{background:#d65b91;color:white;text-align:center;padding:28px}
+.delete{background:none;color:#c34e83;padding:4px}
+@media(max-width:650px){header{justify-content:center}nav{justify-content:center}.hero h1{font-size:29px}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">🍰 Doce Lucro</div>
+<nav>
+<a href="#inicio">Início</a>
+<a href="#funcionalidades">Funcionalidades</a>
+<a href="#financeiro">Financeiro</a>
+<a href="#produtos">Produtos</a>
+<a href="#calculadora">Calculadora</a>
+<a href="#clientes">Clientes</a>
+<a href="#estoque">Estoque</a>
+<a href="#encomendas">Encomendas</a>
+</nav>
+</header>
+
+<div class="hero" id="inicio">
+<h1>Seu negócio mais doce e lucrativo! 💗</h1>
+<p>Uma plataforma completa para organizar e administrar sua confeitaria.</p>
+<a class="btn" href="#financeiro">Começar agora</a>
+</div>
+
+<section id="funcionalidades">
+<h2>O que oferecemos?</h2>
+<div class="cards">
+<div class="card"><div class="emoji">💰</div><h3>Gestão financeira</h3><p>Controle suas receitas e despesas.</p></div>
+<div class="card"><div class="emoji">🧁</div><h3>Cardápio digital</h3><p>Organize todos os seus produtos.</p></div>
+<div class="card"><div class="emoji">📊</div><h3>Gráficos de vendas</h3><p>Acompanhe seus resultados.</p></div>
+<div class="card"><div class="emoji">👩‍🍳</div><h3>Clientes</h3><p>Cadastre e organize seus clientes.</p></div>
+<div class="card"><div class="emoji">📦</div><h3>Estoque</h3><p>Controle seus ingredientes.</p></div>
+<div class="card"><div class="emoji">🎂</div><h3>Encomendas</h3><p>Organize os pedidos recebidos.</p></div>
+</div>
+</section>
+
+<section id="financeiro">
+<h2>Painel financeiro</h2>
+<div class="panel">
+<div class="dashboard">
+<div class="info"><h3>Receitas</h3><p id="receitas">R$ 0,00</p></div>
+<div class="info"><h3>Despesas</h3><p id="despesas">R$ 0,00</p></div>
+<div class="info"><h3>Lucro</h3><p id="lucro">R$ 0,00</p></div>
+</div>
+<div class="form" style="margin-top:20px;box-shadow:none">
+<h3>Nova movimentação</h3>
+<label>Tipo</label>
+<select id="tipo"><option value="receita">Receita</option><option value="despesa">Despesa</option></select>
+<label>Descrição</label><input id="descricao" placeholder="Ex: Venda de bolo">
+<label>Valor</label><input id="valor" type="number" min="0.01" step="0.01">
+<button onclick="addMov()">Adicionar</button>
+</div>
+<div class="table"><table><thead><tr><th>Descrição</th><th>Tipo</th><th>Valor</th><th>Ação</th></tr></thead><tbody id="movimentos"></tbody></table></div>
+</div>
+</section>
+
+<section id="produtos">
+<h2>Cardápio de produtos 🧁</h2>
+<div class="form">
+<label>Nome do produto</label><input id="produto" placeholder="Ex: Bolo de chocolate">
+<label>Preço de venda</label><input id="preco" type="number" min="0.01" step="0.01">
+<button onclick="addProduto()">Cadastrar produto</button>
+</div>
+<div class="table"><table><thead><tr><th>Produto</th><th>Preço</th><th>Ação</th></tr></thead><tbody id="produtosLista"></tbody></table></div>
+</section>
+
+<section id="calculadora">
+<h2>Calculadora de lucros 🧮</h2>
+<div class="form">
+<label>Custo de produção (R$)</label><input id="custo" type="number" min="0" step="0.01">
+<label>Preço de venda (R$)</label><input id="venda" type="number" min="0.01" step="0.01">
+<button onclick="calcular()">Calcular lucro</button>
+<div class="resultado" id="resultado">Seu resultado aparecerá aqui.</div>
+</div>
+</section>
+
+<section id="clientes">
+<h2>Cadastro de clientes 👩</h2>
+<div class="form">
+<label>Nome</label><input id="nomeCliente" placeholder="Nome do cliente">
+<label>Telefone</label><input id="telefone" placeholder="Telefone">
+<button onclick="addCliente()">Cadastrar cliente</button>
+</div>
+<div class="table"><table><thead><tr><th>Nome</th><th>Telefone</th><th>Ação</th></tr></thead><tbody id="clientesLista"></tbody></table></div>
+</section>
+
+<section id="estoque">
+<h2>Controle de estoque 📦</h2>
+<div class="form">
+<label>Ingrediente</label><input id="ingrediente" placeholder="Ex: Chocolate">
+<label>Quantidade</label><input id="quantidade" type="number" min="0" step="1">
+<button onclick="addEstoque()">Adicionar ao estoque</button>
+</div>
+<div class="table"><table><thead><tr><th>Ingrediente</th><th>Quantidade</th><th>Ação</th></tr></thead><tbody id="estoqueLista"></tbody></table></div>
+</section>
+
+<section id="encomendas">
+<h2>Encomendas online 🎂</h2>
+<div class="form">
+<label>Nome do cliente</label><input id="clientePedido">
+<label>Produto</label><input id="produtoPedido">
+<label>Data de entrega</label><input id="dataPedido" type="date">
+<button onclick="addPedido()">Registrar encomenda</button>
+</div>
+<div class="table"><table><thead><tr><th>Cliente</th><th>Produto</th><th>Entrega</th><th>Ação</th></tr></thead><tbody id="pedidosLista"></tbody></table></div>
+</section>
+
+<footer>
+<h2 style="color:white">🍰 Doce Lucro</h2>
+<p>Transformando sonhos em negócios lucrativos.</p>
+<p>© 2026 Doce Lucro</p>
+</footer>
+
+<script>
+const dinheiro=n=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const seguro=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+let movimentos=[],produtos=[],clientes=[],estoque=[],pedidos=[];
+
+function addMov(){
+let descricao=document.getElementById('descricao').value.trim();
+let valor=Number(document.getElementById('valor').value);
+let tipo=document.getElementById('tipo').value;
+if(!descricao||!Number.isFinite(valor)||valor<=0)return alert('Preencha os campos corretamente.');
+movimentos.push({descricao,valor,tipo});
+document.getElementById('descricao').value='';
+document.getElementById('valor').value='';
+renderMov();
+}
+
+function renderMov(){
+let receitas=movimentos.filter(m=>m.tipo==='receita').reduce((s,m)=>s+m.valor,0);
+let despesas=movimentos.filter(m=>m.tipo==='despesa').reduce((s,m)=>s+m.valor,0);
+document.getElementById('receitas').textContent=dinheiro(receitas);
+document.getElementById('despesas').textContent=dinheiro(despesas);
+document.getElementById('lucro').textContent=dinheiro(receitas-despesas);
+document.getElementById('movimentos').innerHTML=movimentos.map((m,i)=>`<tr><td>${seguro(m.descricao)}</td><td>${m.tipo}</td><td>${dinheiro(m.valor)}</td><td><button class="delete" onclick="delMov(${i})">Excluir</button></td></tr>`).join('');
+}
+
+function delMov(i){movimentos.splice(i,1);renderMov()}
+
+function addProduto(){
+let nome=document.getElementById('produto').value.trim(),preco=Number(document.getElementById('preco').value);
+if(!nome||!Number.isFinite(preco)||preco<=0)return alert('Informe produto e preço válido.');
+produtos.push({nome,preco});
+document.getElementById('produto').value='';
+document.getElementById('preco').value='';
+renderProdutos();
+}
+function renderProdutos(){
+document.getElementById('produtosLista').innerHTML=produtos.map((p,i)=>`<tr><td>${seguro(p.nome)}</td><td>${dinheiro(p.preco)}</td><td><button class="delete" onclick="delProduto(${i})">Excluir</button></td></tr>`).join('');
+}
+function delProduto(i){produtos.splice(i,1);renderProdutos()}
+
+function calcular(){
+let custo=Number(document.getElementById('custo').value),venda=Number(document.getElementById('venda').value);
+if(!Number.isFinite(custo)||!Number.isFinite(venda)||custo<0||venda<=0)return alert('Informe valores válidos.');
+let lucro=venda-custo;
+document.getElementById('resultado').innerHTML=`Custo: ${dinheiro(custo)}<br>Venda: ${dinheiro(venda)}<br>Lucro: <b>${dinheiro(lucro)}</b><br>Margem: ${(lucro/venda*100).toFixed(2)}%`;
+}
+
+function addCliente(){
+let nome=document.getElementById('nomeCliente').value.trim(),telefone=document.getElementById('telefone').value.trim();
+if(!nome||!telefone)return alert('Preencha nome e telefone.');
+clientes.push({nome,telefone});
+document.getElementById('nomeCliente').value='';
+document.getElementById('telefone').value='';
+renderClientes();
+}
+function renderClientes(){
+document.getElementById('clientesLista').innerHTML=clientes.map((c,i)=>`<tr><td>${seguro(c.nome)}</td><td>${seguro(c.telefone)}</td><td><button class="delete" onclick="delCliente(${i})">Excluir</button></td></tr>`).join('');
+}
+function delCliente(i){clientes.splice(i,1);renderClientes()}
+
+function addEstoque(){
+let nome=document.getElementById('ingrediente').value.trim(),quantidade=Number(document.getElementById('quantidade').value);
+if(!nome||!Number.isInteger(quantidade)||quantidade<0)return alert('Informe ingrediente e quantidade válida.');
+estoque.push({nome,quantidade});
+document.getElementById('ingrediente').value='';
+document.getElementById('quantidade').value='';
+renderEstoque();
+}
+function renderEstoque(){
+document.getElementById('estoqueLista').innerHTML=estoque.map((e,i)=>`<tr><td>${seguro(e.nome)}</td><td>${e.quantidade}</td><td><button class="delete" onclick="delEstoque(${i})">Excluir</button></td></tr>`).join('');
+}
+function delEstoque(i){estoque.splice(i,1);renderEstoque()}
+
+function addPedido(){
+let cliente=document.getElementById('clientePedido').value.trim(),produto=document.getElementById('produtoPedido').value.trim(),data=document.getElementById('dataPedido').value;
+if(!cliente||!produto||!data)return alert('Preencha todos os dados da encomenda.');
+pedidos.push({cliente,produto,data});
+document.getElementById('clientePedido').value='';
+document.getElementById('produtoPedido').value='';
+document.getElementById('dataPedido').value='';
+renderPedidos();
+}
+function renderPedidos(){
+document.getElementById('pedidosLista').innerHTML=pedidos.map((p,i)=>`<tr><td>${seguro(p.cliente)}</td><td>${seguro(p.produto)}</td><td>${p.data.split('-').reverse().join('/')}</td><td><button class="delete" onclick="delPedido(${i})">Excluir</button></td></tr>`).join('');
+}
+function delPedido(i){pedidos.splice(i,1);renderPedidos()}
+</script>
+</body>
+  </html>
+  
